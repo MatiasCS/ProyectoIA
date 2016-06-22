@@ -18,7 +18,6 @@ public:
 	void set_departure_hotel(int hotel_id);
 	void set_arrival_hotel(int hotel_id);
 	void set_trip_max_length(float trip_length);
-	void set_initial_poi(int N);
 	void set_trip_score(int total_score);
 	void set_trip_length(float trip_length);
 	
@@ -44,6 +43,8 @@ public:
 	void push_distance(float distance);
 
 	void pop_last_poi();
+
+	void print_trip();
 };
 
 #endif

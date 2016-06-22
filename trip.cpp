@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <time.h>
-//for couts
-//#include <iostream>
+#include <iostream>
 #include "trip.h"
 
 trip::trip(){
@@ -22,14 +21,6 @@ void trip::set_arrival_hotel(int hotel_id){
 
 void trip::set_trip_max_length(float trip_length){
 	this->trip_max_length = trip_length;
-}
-
-void trip::set_initial_poi(int N){
-	srand (time(NULL));
-	int pois_number = N-2;
-	int rpoi = rand() % (pois_number);
-	push_poi(rpoi);
-
 }
 
 void trip::set_trip_score(int total_score){
@@ -95,4 +86,16 @@ void trip::push_distance(float distance){
 void trip::pop_last_poi(){
 	this->distances.pop_back();
 	this->poi_list.pop_back();
+}
+
+void trip::print_trip(){
+	cout<<"Trip Generado:\t Score: "<<trip_score<<"\tLength: "<<trip_length<<'\n';
+	for (int i = 0 ; i < (signed)poi_list.size(); i ++){
+		if(i == 0)
+			cout<<"h"<<departure_hotel<<"-p"<<poi_list[i];
+		else if(i+1 == (signed)poi_list.size())
+			cout<<"-p"<<poi_list[i]<<"-h"<<arrival_hotel<<"\n";
+		else
+			cout<<"-p"<<poi_list[i];
+	}
 }

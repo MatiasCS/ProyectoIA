@@ -37,6 +37,7 @@ vector<float> to_float_tlengths(string line){
   stringstream ss(line);
   string token;
   while(getline(ss,token,'\t')){
+    if(atof(token.c_str()) != 0)
       v.push_back(atof(token.c_str()));
   }
   return v;

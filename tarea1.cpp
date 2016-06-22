@@ -1,12 +1,15 @@
 #include "utilities.h"
 #include "trip.h"
-#include "evo.h"
+#include "generator.h"
+#include "tour.h"
+#include "population.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <vector>
 #include <cstdlib>
+#include <time.h>
 using namespace std;
 
 int main(int argc, char *argv[]){
@@ -23,16 +26,16 @@ int main(int argc, char *argv[]){
 			error_message();
 		
 		else{
+			srand (time(0));
 			int* params = get_params(file);
   			float tmax = get_tmax(file);
   			vector<float> td = get_td(file);
   			vector< vector<int> > hotels = get_hotels(file, params[1]);
   			vector< vector<int> > pois = get_pois(file, params[0] ,params[1]);
-  			trip trip1;
-  			trip1.set_trip_max_length(td[0]);
-  			trip1.set_departure_hotel(0);
-  			build_trip(hotels,pois, trip1);
-  			cout<<trip1.get_trip_length();
+  			vector<tour> population1 = generate_initial_population(10, hotels, pois, tmax, td);
+  			vector<tour> population2 = generate_initial_population(50, hotels, pois, tmax, td);
+  			print_solutions(population1);
+  			migration(population1,population2);
   		}
 	}
 }
