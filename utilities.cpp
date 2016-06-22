@@ -72,7 +72,7 @@ vector<float> get_td (string instance_name){
   ifstream instance (instance_name.c_str());
   for(int i = 0; i < 3; i++)
     getline (instance,line);
-    
+  
   td = to_float_tlengths(line);
   instance.close();
 

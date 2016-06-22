@@ -10,8 +10,10 @@ class trip{
 	int trip_score;
 	float trip_length;
 	vector<int> poi_list;
-
+	vector<float> distances;
 public:
+	trip();
+
 	//Setters
 	void set_departure_hotel(int hotel_id);
 	void set_arrival_hotel(int hotel_id);
@@ -27,13 +29,21 @@ public:
 	int get_trip_score();
 	float get_trip_length();
 	vector<int> get_poi_list();
+	vector<float> get_distances();
+	
 	//Retrona el ultimo poi de la poi_list
 	int get_last_poi();
+
+	float get_last_poi_distance();
 
 	//Annade un poi a la poi_list
 	void push_poi(int poi_id);
 	//Vacia la poi_list
 	void clear_poi_list();
+
+	void push_distance(float distance);
+
+	void pop_last_poi();
 };
 
 #endif

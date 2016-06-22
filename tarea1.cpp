@@ -29,9 +29,10 @@ int main(int argc, char *argv[]){
   			vector< vector<int> > hotels = get_hotels(file, params[1]);
   			vector< vector<int> > pois = get_pois(file, params[0] ,params[1]);
   			trip trip1;
-  			trip1.set_trip_max_length(tmax);
+  			trip1.set_trip_max_length(td[0]);
   			trip1.set_departure_hotel(0);
-  			trip1 = build_trip(hotels,pois,trip1);
+  			build_trip(hotels,pois, trip1);
+  			cout<<trip1.get_trip_length();
   		}
 	}
 }
