@@ -12,7 +12,7 @@ class tour{
 
 public:
 	//Setters
-	void  set_trips(vector< vector<int> > hotel_list, vector< vector<int> > poi_list, vector<float> td);
+	void set_trips(vector< vector<int> > hotel_list, vector< vector<int> > poi_list, vector<float> td);
 	void set_tmax(float tmax);
 	void set_number_of_trips(int trips);
 	void set_total_score();
@@ -22,12 +22,15 @@ public:
 	float get_tmax();
 	int get_number_of_trips();
 	int get_total_score();
+	trip get_trip(int trip_id);
 
 	void push_trip(trip t);
 
 	int get_last_arrived_hotel();
 
 	void print_tour();
+
+	void reset_trips(vector<trip> trip);
 };
 
 #endif

@@ -20,6 +20,8 @@ public:
 	void set_trip_max_length(float trip_length);
 	void set_trip_score(int total_score);
 	void set_trip_length(float trip_length);
+	void set_distances(vector<float> distances);
+	void set_poi_list(vector<int> poi_list);
 	
 	//Getters
 	int get_departure_hotel();
@@ -45,6 +47,16 @@ public:
 	void pop_last_poi();
 
 	void print_trip();
+
+	void  calculate_distance_dhotel_poi(vector< vector<int> >hotel_list, vector< vector<int> >poi_list);
+
+	float sum_distances();
+
+	void reset_distances(vector< vector<int> >hotel_list, vector< vector<int> >poi_list);
+
+	void set_to_erase_poi(int poi_position);
+
+	void erase_pois();
 };
 
 #endif

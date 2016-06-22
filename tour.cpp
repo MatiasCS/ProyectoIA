@@ -35,6 +35,8 @@ int tour::get_last_arrived_hotel(){
 
 void  tour::set_trips(vector< vector<int> > hotel_list, vector< vector<int> > poi_list, vector<float> td){
 	int visited_pois[(signed) poi_list.size()];
+	for (int i;i < (signed)poi_list.size();i++)
+  		visited_pois[i] = 0;
 	for (int i = 0 ; i < (signed) td.size(); i++){
 		if(i == 0){
 			trip t;
@@ -78,4 +80,12 @@ void tour::set_total_score(){
 
 int tour::get_total_score(){
 	return this->total_score;
+}
+
+trip tour::get_trip(int trip_id){
+	return this->trips[trip_id];
+}
+
+void tour::reset_trips(vector<trip> trip_list){
+	this->trips = trip_list;
 }

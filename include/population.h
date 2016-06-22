@@ -23,5 +23,9 @@ int roulette_operator(vector<tour> population);
 
 void migration(vector<tour> population1, vector<tour> population2);
 
-void crossover(tour t1, tour t2);
+void set_as_visited(vector<int> pois, int visited_list[]);
+
+int delete_duplicates_pois(tour &t, int crossover_point, int visited_list[],vector< vector<int> >hotel_list , vector< vector<int> >pois_list);
+
+tour crossover(tour t1, tour t2, vector< vector<int> > hotel_list, vector< vector<int> >poi_list);
 #endif
