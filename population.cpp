@@ -7,6 +7,10 @@
 #include <cstdlib>
 using namespace std;
 
+const int MAX_POPULATION = 50;
+const float MIGRATION_RATE = 3.0/(float)MAX_POPULATION;
+const float XOVER_RATE = 3.0/(float)MAX_POPULATION;
+
 vector<tour> generate_initial_population(int size, vector< vector<int> > hotel_list, 
 	vector< vector<int> > poi_list, float tmax, vector<float> td){
 	
@@ -79,7 +83,7 @@ int roulette_operator(vector<tour> population){
 			break;
 		}
 
-	return selected_solution;
+	return selected_solution-1;
 	
 }
 
@@ -160,7 +164,7 @@ int delete_duplicates_pois(tour &t, int crossover_point, int visited_list[],vect
 
 tour crossover(tour t1, tour t2, vector< vector<int> > hotel_list, vector< vector<int> >poi_list){
 	int crossover_point = rand() % (t1.get_number_of_trips());
-	cout<<"Cross point "<<crossover_point<<"\n";
+	//cout<<"Cross point "<<crossover_point<<"\n";
 	tour offspring;
 	int  factibility = 1;
 	offspring.set_tmax(t1.get_tmax());
@@ -169,10 +173,8 @@ tour crossover(tour t1, tour t2, vector< vector<int> > hotel_list, vector< vecto
   	trip xtrip2 = t2.get_trip(crossover_point);
   	int visited_list[poi_list.size()];
   	
-  	for (int i; i < (signed)poi_list.size();i++){
+  	for (int i; i < (signed)poi_list.size();i++)
   		visited_list[i] = 0;
-  		cout<<visited_list[i];
-  	}
   	
   	for(int i = 0; i <offspring.get_number_of_trips(); i++){
   		if(i == crossover_point){
@@ -200,7 +202,7 @@ tour crossover(tour t1, tour t2, vector< vector<int> > hotel_list, vector< vecto
   			offspring.push_trip(t);
   		}
   	}
-  	offspring.print_tour();
+  	//offspring.print_tour();
   	if(factibility == 1){
    		int success = delete_duplicates_pois(offspring, crossover_point, visited_list, hotel_list, poi_list);
    		if(!success)
@@ -209,7 +211,83 @@ tour crossover(tour t1, tour t2, vector< vector<int> > hotel_list, vector< vecto
   	else
   		offspring.set_tmax(-1);
 
-  	offspring.print_tour();
+  	//offspring.print_tour();
   	offspring.set_total_score();
   	return offspring;
 }
+
+vector<tour> xover_operator(vector<tour> population, vector< vector<int> > hotel_list, vector< vector<int> > poi_list){
+	vector<int> x_population_ids;
+	vector<tour> x_population;
+	for(int i = 0; i < MAX_POPULATION; i++){
+		int chosen = roulette_operator(population);
+		x_population_ids.push_back(chosen);
+	}
+
+	for(int i = 0; i < MAX_POPULATION -1; i++){
+		float xp = (float)rand()/(float)(RAND_MAX);
+		if(xp<=XOVER_RATE){
+			tour t = crossover(population[x_population_ids[i]], population[x_population_ids[i+1]], hotel_list, poi_list);
+			if(t.get_tmax() != -1)
+				x_population.push_back(t);
+		}
+	}
+	
+	return x_population;
+}
+
+void select_best_solution(vector<tour> population){
+	tour best_solution;
+	int population_size = population.size();
+
+	for(int i = 0; i < population_size; i++){
+		if(i == 0)
+			best_solution = population[i];
+		else
+			if(best_solution.get_total_score() < population[i].get_total_score())
+				best_solution = population[i];
+	}
+
+	best_solution.print_tour();
+}
+
+void evolutive(vector< vector<int> > hotel_list, vector< vector<int> > poi_list, float tmax, vector<float> td, int iterations){
+	vector<tour> population1 = generate_initial_population(MAX_POPULATION, hotel_list, poi_list, tmax, td);
+  	vector<tour> population2 = generate_initial_population(MAX_POPULATION, hotel_list, poi_list, tmax, td);
+
+  	for(int i = 0; i<iterations; i++){
+
+	  	for(int j = 0; j < MAX_POPULATION/2; j++){
+	  		float mp = (float)rand()/(float)(RAND_MAX);
+	  		if(mp<MIGRATION_RATE)
+	  			migration(population1, population2);
+	  	}
+
+	  	vector<tour> next_population1 = xover_operator(population1, hotel_list, poi_list);
+	  	vector<tour> next_population2 = xover_operator(population2, hotel_list, poi_list);
+
+	  	int to_select1 = MAX_POPULATION - next_population1.size();
+	  	int to_select2 = MAX_POPULATION - next_population2.size();
+
+	  	for(int i = 0; i < to_select1; i++){
+	  		int selected = roulette_operator(population1);
+	  		next_population1.push_back(population1[selected]);
+	  	}
+
+	  	for(int i = 0; i < to_select2; i++){
+	  		int selected = roulette_operator(population2);
+	  		next_population2.push_back(population2[selected]);
+	  	}
+
+	  	population1.clear();
+	  	population2.clear();
+
+	  	population1 = next_population1;
+	  	population2 = next_population2;
+
+  	}
+
+  	select_best_solution(population1);
+  	select_best_solution(population2);
+}
+

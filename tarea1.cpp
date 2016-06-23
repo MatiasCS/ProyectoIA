@@ -32,12 +32,7 @@ int main(int argc, char *argv[]){
   			vector<float> td = get_td(file);
   			vector< vector<int> > hotels = get_hotels(file, params[1]);
   			vector< vector<int> > pois = get_pois(file, params[0] ,params[1]);
-  			vector<tour> population1 = generate_initial_population(10, hotels, pois, tmax, td);
-  			vector<tour> population2 = generate_initial_population(50, hotels, pois, tmax, td);
-  			//print_solutions(population1);
-  			//migration(population1,population2);
-  			tour offspring = crossover(population1[0], population1[1],hotels,pois);
-  			//offspring.print_tour();
+  			evolutive(hotels, pois, tmax, td, 10);
   		}
 	}
 }

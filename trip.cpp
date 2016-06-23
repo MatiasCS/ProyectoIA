@@ -144,7 +144,7 @@ void trip::reset_distances(vector< vector<int> >hotel_list, vector< vector<int> 
 	this->distances.push_back(euclidean_distance(dhx,dhy, apx, apy));
 
 	for(int i = 0 ; i < (signed) poi_list.size()-1; i++){
-		cout<<poi_list[i]<<'\n';
+		//cout<<poi_list[i]<<'\n';
 		dpx = pois_list[poi_list[i]][0];
 		dpy = pois_list[poi_list[i]][1];
 
@@ -162,7 +162,7 @@ void trip::reset_distances(vector< vector<int> >hotel_list, vector< vector<int> 
 }
 
 void trip::set_to_erase_poi(int poi_position){
-	cout<<"Borrando al POI: "<<poi_position<<'\n';
+	//cout<<"Borrando al POI: "<<poi_position<<'\n';
 	this->poi_list[poi_position] = -1;
 
 }

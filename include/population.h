@@ -28,4 +28,10 @@ void set_as_visited(vector<int> pois, int visited_list[]);
 int delete_duplicates_pois(tour &t, int crossover_point, int visited_list[],vector< vector<int> >hotel_list , vector< vector<int> >pois_list);
 
 tour crossover(tour t1, tour t2, vector< vector<int> > hotel_list, vector< vector<int> >poi_list);
+
+void evolutive(vector< vector<int> > hotel_list, vector< vector<int> > poi_list, float tmax, vector<float> td, int iterations);
+
+vector<tour> xover_operator(vector<tour> population, vector< vector<int> > hotel_list, vector< vector<int> > poi_list);
+
+void select_best_solution(vector<tour> population);
 #endif
