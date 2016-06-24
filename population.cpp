@@ -14,6 +14,7 @@ const float XOVER_RATE = 3.0/(float)MAX_POPULATION;
 vector<tour> generate_initial_population(int size, vector< vector<int> > hotel_list, 
 	vector< vector<int> > poi_list, float tmax, vector<float> td){
 	
+	cout<<"Generando soluciones...\n";
 	vector<tour> population;
 	for(int i = 0; i < size; i++){
 		tour t;
@@ -21,7 +22,6 @@ vector<tour> generate_initial_population(int size, vector< vector<int> > hotel_l
   		t.set_number_of_trips((signed)td.size());
   		t.set_trips(hotel_list, poi_list, td);
   		population.push_back(t);
-  		cout<<"Solucion "<<i<<" generada\n";
 	}
 
 	return population;
@@ -38,7 +38,7 @@ vector<int> get_scores(vector<tour> population){
 void print_solutions(vector<tour> population){
 	for(int i= 0; i<(signed) population.size(); i++){
 		cout<<"Solution "<<i<<"\n";
-		population[i].print_tour();
+		//population[i].print_tour();
 		cout<<"----------------------------------------\n";
 	}
 
@@ -236,7 +236,7 @@ vector<tour> xover_operator(vector<tour> population, vector< vector<int> > hotel
 	return x_population;
 }
 
-void select_best_solution(vector<tour> population){
+tour select_best_solution(vector<tour> population){
 	tour best_solution;
 	int population_size = population.size();
 
@@ -248,10 +248,10 @@ void select_best_solution(vector<tour> population){
 				best_solution = population[i];
 	}
 
-	best_solution.print_tour();
+	return best_solution;
 }
 
-void evolutive(vector< vector<int> > hotel_list, vector< vector<int> > poi_list, float tmax, vector<float> td, int iterations){
+void evolutive(vector< vector<int> > hotel_list, vector< vector<int> > poi_list, float tmax, vector<float> td, int iterations, string file_name){
 	vector<tour> population1 = generate_initial_population(MAX_POPULATION, hotel_list, poi_list, tmax, td);
   	vector<tour> population2 = generate_initial_population(MAX_POPULATION, hotel_list, poi_list, tmax, td);
 
@@ -286,8 +286,12 @@ void evolutive(vector< vector<int> > hotel_list, vector< vector<int> > poi_list,
 	  	population2 = next_population2;
 
   	}
+  	vector<tour> bests_solutions;
+  	bests_solutions.push_back(select_best_solution(population1));
+  	bests_solutions.push_back(select_best_solution(population2));
 
-  	select_best_solution(population1);
-  	select_best_solution(population2);
+  	select_best_solution(bests_solutions).print_tour(file_name);
+
+  	
 }
 

@@ -2,6 +2,8 @@
 #define TOUR_H
 #include "trip.h"
 #include <vector>
+#include <iostream>
+#include <fstream>
 using namespace std;
 
 class tour{
@@ -28,7 +30,7 @@ public:
 
 	int get_last_arrived_hotel();
 
-	void print_tour();
+	void print_tour(string file_name);
 
 	void reset_trips(vector<trip> trip);
 };

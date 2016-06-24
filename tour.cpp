@@ -64,10 +64,19 @@ void  tour::set_trips(vector< vector<int> > hotel_list, vector< vector<int> > po
 	set_total_score();
 }
 
-void tour::print_tour(){
+void tour::print_tour(string file_name){
+	cout<<"Mejor solucion encontrada con score "<<total_score<<"\n";
+	cout<<"Escribiendo archivo de salida...\n";
+	ofstream file;
+	string file_path = "Solutions/" + file_name;
+	file.open(file_path.c_str());
+	file<<tmax<<"\n";
+	file.close();
 	for(int i= 0; i < (signed)trips.size(); i++){
-		trips[i].print_trip();
+		trips[i].print_trip(file_name,  tmax);
 	}
+
+	file.close();
 }
 
 void tour::set_total_score(){

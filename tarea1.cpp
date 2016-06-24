@@ -32,7 +32,9 @@ int main(int argc, char *argv[]){
   			vector<float> td = get_td(file);
   			vector< vector<int> > hotels = get_hotels(file, params[1]);
   			vector< vector<int> > pois = get_pois(file, params[0] ,params[1]);
-  			evolutive(hotels, pois, tmax, td, 10);
+  			string file2 = argv[2];
+  			file2 += ".txt";
+  			evolutive(hotels, pois, tmax, td, 10, file2);
   		}
 	}
 }

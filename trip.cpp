@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
+#include <fstream>
 #include "trip.h"
 #include "utilities.h"
 
@@ -96,18 +97,22 @@ void trip::pop_last_poi(){
 	this->poi_list.pop_back();
 }
 
-void trip::print_trip(){
-	cout<<"Trip Generado:\t Score: "<<trip_score<<"\tLength: "<<trip_length<<'\n';
+void trip::print_trip(string file_name, float tmax){
+	//cout<<"Trip Generado:\t Score: "<<trip_score<<"\tLength: "<<trip_length<<'\n';
+	ofstream file;
+	string file_path = "Solutions/" + file_name;
+	file.open(file_path.c_str(), ios::app);
+	file<<trip_max_length<<"\t"<<trip_length<<"\t";
 	for (int i = 0 ; i < (signed)poi_list.size(); i ++){
 		if(i == 0)
-			cout<<"h"<<departure_hotel<<"-p"<<poi_list[i];
+			file<<"h"<<departure_hotel<<"\tp"<<poi_list[i];
 		else if(i+1 == (signed)poi_list.size())
-			cout<<"-p"<<poi_list[i]<<"-h"<<arrival_hotel<<"\n";
+			file<<"\tp"<<poi_list[i]<<"\th"<<arrival_hotel<<"\n";
 		else
-			cout<<"-p"<<poi_list[i];
+			file<<"\tp"<<poi_list[i];
 	}
 	if((signed)poi_list.size() == 1)
-		cout<<"-h"<<arrival_hotel<<"\n";
+		file<<"\th"<<arrival_hotel<<"\n";
 }
 
 void  trip::calculate_distance_dhotel_poi(vector< vector<int> >hotel_list, vector< vector<int> >poi_list){

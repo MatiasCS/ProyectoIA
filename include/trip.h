@@ -1,6 +1,8 @@
 #ifndef TRIP_H
 #define TRIP_H
 #include <vector>
+#include <iostream>
+#include <fstream>
 using namespace std;
 
 class trip{
@@ -46,7 +48,7 @@ public:
 
 	void pop_last_poi();
 
-	void print_trip();
+	void print_trip(string file_name, float tmax);
 
 	void  calculate_distance_dhotel_poi(vector< vector<int> >hotel_list, vector< vector<int> >poi_list);
 
