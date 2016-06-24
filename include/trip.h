@@ -36,28 +36,36 @@ public:
 	
 	//Retrona el ultimo poi de la poi_list
 	int get_last_poi();
-
+	
 	float get_last_poi_distance();
 
 	//Annade un poi a la poi_list
 	void push_poi(int poi_id);
 	//Vacia la poi_list
 	void clear_poi_list();
-
+	
+	//Anade la distancia distance a la lista distances
 	void push_distance(float distance);
-
+	
+	//Elimina el ultimo poi de la lista
 	void pop_last_poi();
-
+	
+	//Imprime el trip en el archivo de salida
 	void print_trip(string file_name, float tmax);
 
+	//Calcula la distancia entre el hotel y el primer poi del trip
 	void  calculate_distance_dhotel_poi(vector< vector<int> >hotel_list, vector< vector<int> >poi_list);
-
+	
+	//Obtiene la suma del vector distances
 	float sum_distances();
 
+	//Setea el vector distances al vector entregado como parametro
 	void reset_distances(vector< vector<int> >hotel_list, vector< vector<int> >poi_list);
-
+	
+	//Marca un poi para eliminacion cambiando su id a -1
 	void set_to_erase_poi(int poi_position);
 
+	//Elimina los pois marcados para ser eliminados
 	void erase_pois();
 };
 
