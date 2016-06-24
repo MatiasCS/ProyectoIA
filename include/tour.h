@@ -26,12 +26,15 @@ public:
 	int get_total_score();
 	trip get_trip(int trip_id);
 
+	//Annade el trip t al final de la lista de trips
 	void push_trip(trip t);
-
+	//Retorna el id del hotel de llegada del ultimo trip
 	int get_last_arrived_hotel();
 
+	//Imprime el archivo con la solucion
 	void print_tour(string file_name);
-
+	
+	//Setea la lista de trips con la lista trip entregada
 	void reset_trips(vector<trip> trip);
 };
 
